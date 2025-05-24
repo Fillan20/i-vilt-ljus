@@ -109,23 +109,26 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    max-width: 100%;
     height: 100%;
     overflow-x: hidden;
     font-family: Arial, sans-serif;
     font-size: 1em;
+
+    /* Gör body till flex-container för att centrera innehåll */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Twine story container */
 tw-story {
     background-color: #f0f0f0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* Content-container med responsivitet */
@@ -138,13 +141,14 @@ tw-story {
     border: 2px solid #000;
     width: 90%;
     max-width: 800px;
-    max-height: 95vh;
+    max-height: 90vh;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 8px;
     color: black;
     z-index: 1;
     overflow-y: auto;
+    margin: auto; /* centrera container */
 }
 
 /* Overlay för ljus bakgrund */
@@ -170,18 +174,26 @@ tw-story, tw-link {
 }
 
 /* Länkar / knappar */
+/* Viktigt: lägga till display:flex på container för att knapparna ska ligga bredvid */
+#button-container {
+    display: flex;
+    flex-wrap: wrap; /* gör så knapparna går till nästa rad om det behövs */
+    justify-content: center; /* centrera knapparna horisontellt */
+    gap: 10px; /* mellanrum mellan knapparna */
+}
+
 tw-link {
     display: inline-block;
     background-color: #2e8b57;
     color: black;
     padding: 15px 25px;
-    margin: 5px;
     font-size: 16px;
     text-align: center;
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap; /* förhindrar att knapparna bryts på mitten */
 }
 
 tw-link:hover {
@@ -243,8 +255,7 @@ tw-link:active {
 
 .rubrik-title + p {
     margin-top: 0.5px;
-}
-</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Hämta alla accordion-knappar
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Hämta alla accordion-knappar
 var acc = document.querySelectorAll(".accordion-btn");
 
 // Loop för att lägga till event listeners på varje knapp
