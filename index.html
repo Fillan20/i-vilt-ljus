@@ -149,6 +149,8 @@ tw-story {
     z-index: 1;
     overflow-y: auto;
     margin: auto; /* centrera container */
+    display: flex;
+    flex-direction: column;
 }
 
 /* Overlay för ljus bakgrund */
@@ -167,6 +169,16 @@ tw-story {
     z-index: 1;
 }
 
+/* Bilder i content-container */
+.background-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto 20px auto;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
 /* Textstil */
 tw-story, tw-link {
     color: black;
@@ -174,19 +186,20 @@ tw-story, tw-link {
 }
 
 /* Länkar / knappar */
-/* Viktigt: lägga till display:flex på container för att knapparna ska ligga bredvid */
+/* Flex container för knappar */
 #button-container {
     display: flex;
     flex-wrap: wrap; /* gör så knapparna går till nästa rad om det behövs */
     justify-content: center; /* centrera knapparna horisontellt */
     gap: 10px; /* mellanrum mellan knapparna */
+    margin-top: 15px;
 }
 
 tw-link {
     display: inline-block;
     background-color: #2e8b57;
-    color: black;
-    padding: 15px 25px;
+    color: white;
+    padding: 12px 25px;
     font-size: 16px;
     text-align: center;
     border-radius: 5px;
@@ -194,6 +207,7 @@ tw-link {
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     white-space: nowrap; /* förhindrar att knapparna bryts på mitten */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 tw-link:hover {
@@ -204,7 +218,7 @@ tw-link:hover {
 tw-link:visited,
 tw-link:active {
     background-color: #2e8b57;
-    color: black;
+    color: white;
     outline: none;
 }
 
@@ -212,7 +226,7 @@ tw-link:active {
 @media screen and (max-width: 768px) {
     #content-container {
         width: 95%;
-        padding: 10px;
+        padding: 15px;
         max-height: 90vh;
     }
 
@@ -236,8 +250,8 @@ tw-link:active {
     font-size: 40px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 0.5px;
-    color: #000;
+    margin-bottom: 10px;
+    color: #2e8b57;
 }
 
 /* Centrerad text */
@@ -250,12 +264,14 @@ tw-link:active {
 
 /* Minska mellanrum före och efter p-taggar */
 #content-container p:not(.rubrik-title) {
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .rubrik-title + p {
-    margin-top: 0.5px;
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Hämta alla accordion-knappar
+    margin-top: 5px;
+}
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Hämta alla accordion-knappar
 var acc = document.querySelectorAll(".accordion-btn");
 
 // Loop för att lägga till event listeners på varje knapp
