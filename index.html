@@ -104,35 +104,32 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="I vilt ljus" startnode="1" creator="Twine" creator-version="2.10.0" format="SugarCube" format-version="2.37.3" ifid="B92F35E6-01FC-4210-ABAA-73FCAAAAC3AE" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* Anpassa hela sidan */
+	<tw-storydata name="I vilt ljus" startnode="1" creator="Twine" creator-version="2.10.0" format="SugarCube" format-version="2.37.3" ifid="B92F35E6-01FC-4210-ABAA-73FCAAAAC3AE" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* === GLOBAL STIL === */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
     font-family: Arial, sans-serif;
     font-size: 1em;
+    background-color: #f0f0f0;
+}
 
-    /* Placera innehållet högst upp och centrera horisontellt */
+/* Ta bort flex från body och hantera layout i content istället */
+body {
+    display: block;
+    overflow-x: hidden;
+}
+
+/* === STORY CONTAINER === */
+tw-story {
     display: flex;
     justify-content: center;
-    align-items: flex-start;  /* Viktigt för att hamna högt upp */
-    padding-top: 5px; /* Lite luft ovanför */
-}
-
-/* Twine story container */
-tw-story {
-    background-color: #f0f0f0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    padding: 20px 10px; /* Ger utrymme runt innehållet */
     box-sizing: border-box;
-    overflow: hidden;
 }
 
-/* Content-container med responsivitet */
+/* === CONTENT BOX === */
 #content-container {
     position: relative;
     background-image: url(https://i.imgur.com/RkNcbdb.png);
@@ -140,47 +137,45 @@ tw-story {
     background-position: center;
     background-repeat: no-repeat;
     border: 2px solid #000;
-    width: 90%;
+    width: 100%;
     max-width: 800px;
-    max-height: 95vh; /* Nästan hela viewport-höjden */
     padding: 20px;
     box-sizing: border-box;
     border-radius: 8px;
     color: black;
-    z-index: 1;
-    overflow-y: auto; /* Scrolla om innehållet är för långt */
-    margin: 0 auto; /* Centrera horisontellt utan extra top-margin */
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.7); /* Fallback om overlay försvinner */
 }
 
-/* Overlay för ljus bakgrund */
+/* === ÖVERLAY (ljus filter över bakgrunden) === */
 #content-container::before {
     content: "";
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    inset: 0;
     background-color: rgba(255, 255, 255, 0.7);
     z-index: 0;
     border-radius: 8px;
 }
 
-/* Se till att allt innehåll visas över overlay */
+/* === SÄKERSTÄLL ATT INNEHÅLL ÄR OVANFÖR OVERLAY === */
 #content-container * {
     position: relative;
     z-index: 1;
 }
 
-/* Textstil */
+/* === TEXT === */
 tw-story, tw-link {
     color: black;
     font-family: Arial, sans-serif;
 }
 
-/* Länkar / knappar */
-/* Container för knappar - flexbox */
+/* === KNAPPAR === */
 #button-container {
     display: flex;
-    flex-wrap: wrap; /* gör så knapparna går till nästa rad om det behövs */
-    justify-content: center; /* centrera knappar horisontellt */
-    gap: 10px; /* mellanrum mellan knappar */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 tw-link {
@@ -194,7 +189,7 @@ tw-link {
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    white-space: nowrap; /* Förhindra knappbrytning */
+    white-space: nowrap;
 }
 
 tw-link:hover {
@@ -202,19 +197,35 @@ tw-link:hover {
     color: white;
 }
 
-tw-link:visited,
-tw-link:active {
-    background-color: #2e8b57;
-    color: black;
-    outline: none;
+/* === TITEL OCH TEXT === */
+.rubrik-title {
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #000;
 }
 
-/* Responsivitet för mobilskärmar */
+.centered-text {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#content-container p:not(.rubrik-title) {
+    margin-top: 5px;
+}
+
+.rubrik-title + p {
+    margin-top: 0.5px;
+}
+
+/* === MOBILRESPONSIVITET === */
 @media screen and (max-width: 768px) {
     #content-container {
         width: 95%;
         padding: 10px;
-        max-height: 90vh;
     }
 
     tw-link {
@@ -230,32 +241,6 @@ tw-link:active {
     tw-story p {
         font-size: 16px;
     }
-}
-
-/* Rubriktitel */
-.rubrik-title {
-    font-size: 40px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 0.5px;
-    color: #000;
-}
-
-/* Centrerad text */
-.centered-text {
-    text-align: center;
-    font-size: 18px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-/* Minska mellanrum före och efter p-taggar */
-#content-container p:not(.rubrik-title) {
-    margin-top: 5px;
-}
-
-.rubrik-title + p {
-    margin-top: 0.5px;
 }
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">// Hämta alla accordion-knappar
 var acc = document.querySelectorAll(".accordion-btn");
